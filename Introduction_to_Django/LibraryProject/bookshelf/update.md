@@ -9,7 +9,7 @@
 **Command:**
 
 ```python
-from book_store.models import Book
+from bookshelf.models import Book
 
 # Retrieve the Book instance with title "1984"
 book = Book.objects.get(title="1984")

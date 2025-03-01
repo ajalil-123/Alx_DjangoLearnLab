@@ -8,7 +8,7 @@
 **Command:**
 
 ```python
-from book_store.models import Book
+from bookshelf.models import Book
 
 # Retrieve the Book instance with the updated title
 book = Book.objects.get(title="Nineteen Eighty-Four")

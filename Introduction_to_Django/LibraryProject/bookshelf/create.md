@@ -6,7 +6,7 @@
 **Command:**
 
 ```python
-from book_store.models import Book
+from bookshelf.models import Book
 
 # Create the Book instance
 book = Book.objects.create(
