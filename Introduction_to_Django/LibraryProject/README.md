@@ -1,0 +1,1 @@
+# This Project seeks to apply variois concepts of Django to develop a library web app
