@@ -2,23 +2,22 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from .models import Book
 
-
 from django.views.generic import DetailView
 from django.shortcuts import render
 from .models import Library
 
-
-def book_list(request):
-    books = Book.objects.all()  # Retrieve all books
-    book_details = "\n".join([f"{book.title} - {book.author.name}" for book in books])  # Format output
-    return HttpResponse(f"List of Books:\n{book_details}", content_type="text/plain")
-
-
-
-
 from django.views.generic import DetailView
 from django.shortcuts import get_object_or_404
 from .models import Library
+
+def list_books(request):
+      """Retrieves all books and renders a template displaying the list."""
+      books = Book.objects.all()  # Fetch all book instances from the database
+      context = {'list_books': books}  # Create a context dictionary with book list
+      return render(request, 'list_books.html', context)
+
+
+
 
 
 class LibraryDetailView(DetailView):
