@@ -7,14 +7,19 @@ from django.shortcuts import get_object_or_404
 from .models import Library
 
 
+from django.contrib.auth.forms import UserCreationForm
+from django.urls import reverse_lazy
+from django.views.generic import CreateView
+from django.contrib.auth.views import LoginView, LogoutView
+from django.contrib.auth import login
+from django.shortcuts import render, redirect
+
+
 def list_books(request):
       """Retrieves all books and renders a template displaying the list."""
       books = Book.objects.all()  # Fetch all book instances from the database
       context = {'list_books': books}  # Create a context dictionary with book list
       return render(request, 'relationship_app/list_books.html', context)
-
-
-
 
 
 class LibraryDetailView(DetailView):
@@ -28,27 +33,6 @@ class LibraryDetailView(DetailView):
         return context
 
 
-
-
-#from django.contrib.auth.models import User
-
-# Create a new user
-#user = User.objects.create_user('john', 'john@example.com', 'password123')
-
-# Retrieve a user based on username
-#user = User.objects.get(username='john')
-
-
-
-from django.contrib.auth.forms import UserCreationForm
-from django.urls import reverse_lazy
-from django.views.generic import CreateView
-from django.contrib.auth.views import LoginView, LogoutView
-from django.contrib.auth.forms import UserCreationForm
-from django.urls import reverse_lazy
-from django.views.generic import CreateView
-from django.contrib.auth import login
-from django.shortcuts import render, redirect
 
 
 class CustomLoginView(LoginView):
@@ -68,4 +52,4 @@ def register(request):
     else:
         form = UserCreationForm()
     
-    return render(request, "relationship_app/registration.html", {"form": form})
+    return render(request, "relationship_app/register.html", {"form": form})
