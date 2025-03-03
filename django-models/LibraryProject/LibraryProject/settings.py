@@ -72,6 +72,10 @@ TEMPLATES = [
 WSGI_APPLICATION = 'LibraryProject.wsgi.application'
 
 
+
+LOGIN_REDIRECT_URL = "home"  # Redirect after login
+LOGOUT_REDIRECT_URL = "login"  # Redirect after logout
+
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
