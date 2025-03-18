@@ -13,6 +13,6 @@ class Author(models.Model):
 
 
 class Book(models.Model):
-    title = models.CharField(max_length=225),
-    publication_year= models.DateField(),
+    title = models.CharField(max_length=225,default="Default Title")
+    publication_year= models.IntegerField(null=True)
     author = models.ForeignKey(Author, on_delete=models.CASCADE)
