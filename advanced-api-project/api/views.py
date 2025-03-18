@@ -3,15 +3,15 @@ from .models import Book
 from .serializers import BookSerializer
 from rest_framework import generics
 from rest_framework.authentication import TokenAuthentication
-from rest_framework.permissions import IsAuthenticated
-from .permissions import IsAuthorOrReadOnly
+from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAuthenticated
+
 
 
 #implement generic views for to handle CRRUD operations
 
 #Generic view that list all books 
 class ListView(generics.ListAPIView):
-    permission_classes = [IsAuthorOrReadOnly]
+    permission_classes = [IsAuthenticatedOrReadOnly]
     queryset = Book.objects.all()
     serializer_class = BookSerializer
 
@@ -19,7 +19,7 @@ class ListView(generics.ListAPIView):
 
 #Generic view that provides details of all books 
 class DetailView(generics.RetrieveAPIView):
-    permission_classes = [IsAuthorOrReadOnly]
+    permission_classes = [IsAuthenticatedOrReadOnly]
     queryset = Book.objects.all()
     serializer_class = BookSerializer
     
