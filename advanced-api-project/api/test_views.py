@@ -1,7 +1,6 @@
 from django.contrib.auth.models import User
 from rest_framework import status
 from api.models import Book, Author
-from api.serializers import BookSerializer
 from rest_framework.test import APIClient
 from django.test import TestCase
 
@@ -40,8 +39,15 @@ class BookAPITestCase(TestCase):
         # Make a POST request to create a book
         response = self.client.post(self.url, book_data, format="json")
         
-        # Check that the book was created successfully
+        # Check the response status code
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+
+        # Check that the response data matches the input data
+        self.assertEqual(response.data['title'], book_data['title'])
+        self.assertEqual(response.data['author'], book_data['author'])
+        self.assertEqual(response.data['publication_year'], book_data['publication_year'])
+
+        # Check that the book was actually created in the database
         self.assertEqual(Book.objects.count(), 2)
 
     def test_update_book(self):
@@ -55,8 +61,15 @@ class BookAPITestCase(TestCase):
         # Make a PUT request to update the book
         response = self.client.put(f'{self.url}{self.book.id}/', updated_data, format="json")
         
-        # Check that the book was updated successfully
+        # Check that the response status code is OK
         self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+        # Check that the response data matches the updated data
+        self.assertEqual(response.data['title'], updated_data['title'])
+        self.assertEqual(response.data['author'], updated_data['author'])
+        self.assertEqual(response.data['publication_year'], updated_data['publication_year'])
+
+        # Verify that the book was updated in the database
         self.book.refresh_from_db()
         self.assertEqual(self.book.title, "Updated Test Book")
 
@@ -64,8 +77,10 @@ class BookAPITestCase(TestCase):
         # Test deleting a book
         response = self.client.delete(f'{self.url}{self.book.id}/')
         
-        # Check that the book was deleted successfully
+        # Check that the response status code is No Content (204)
         self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
+
+        # Verify that the book was deleted from the database
         self.assertEqual(Book.objects.count(), 0)
 
     def test_unauthenticated_access(self):
