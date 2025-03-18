@@ -6,6 +6,7 @@ from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAuthenticated
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import filters
+from django_filters import rest_framework
 
 #implement generic views for to handle CRRUD operations
 
@@ -21,7 +22,7 @@ class ListView(generics.ListAPIView):
     permission_classes = [IsAuthenticatedOrReadOnly]
     queryset = Book.objects.all()
     serializer_class = BookSerializer
-    filterset_fields = ['title', 'author__name','publication_year']
+    filterset_fields = ['title', 'author','publication_year']
 
 
 
