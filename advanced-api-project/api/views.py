@@ -4,8 +4,8 @@ from .serializers import BookSerializer
 from rest_framework import generics
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAuthenticated
-
-
+from django_filters.rest_framework import DjangoFilterBackend
+from rest_framework import filters
 
 #implement generic views for to handle CRRUD operations
 
@@ -15,6 +15,32 @@ class ListView(generics.ListAPIView):
     queryset = Book.objects.all()
     serializer_class = BookSerializer
 
+
+class ListView(generics.ListAPIView):
+    filter_backends = [DjangoFilterBackend]
+    permission_classes = [IsAuthenticatedOrReadOnly]
+    queryset = Book.objects.all()
+    serializer_class = BookSerializer
+    filterset_fields = ['title', 'author__name','publication_year']
+
+
+
+class ListView(generics.ListAPIView):
+    filter_backends = [DjangoFilterBackend]
+    permission_classes = [IsAuthenticatedOrReadOnly]
+    queryset = Book.objects.all()
+    serializer_class = BookSerializer
+    filter_backends = [filters.SearchFilter]
+    search_fields = ['title', 'author']
+
+
+class ListView(generics.ListAPIView):
+    filter_backends = [DjangoFilterBackend]
+    permission_classes = [IsAuthenticatedOrReadOnly]
+    queryset = Book.objects.all()
+    serializer_class = BookSerializer
+    filter_backends = [filters.OrderingFilter]
+    ordering_fields = ['title', 'publication_year']
 
 
 #Generic view that provides details of all books 
@@ -41,5 +67,6 @@ class DeleteView(generics.DestroyAPIView):
     permission_classes = [IsAuthenticated]
     queryset = Book.objects.all()
     serializer_class = BookSerializer
+
 
 
