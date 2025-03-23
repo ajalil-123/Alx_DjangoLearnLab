@@ -57,7 +57,7 @@ import os
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, "templates")],
+        'DIRS': [ BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -71,7 +71,8 @@ TEMPLATES = [
 ]
 
 STATIC_URL = "/static/"
-STATICFILES_DIRS = [os.path.join(BASE_DIR, "static")]
+
+STATICFILES_DIRS = [ BASE_DIR / "static"]
 
 
 WSGI_APPLICATION = 'django_blog.wsgi.application'
@@ -84,6 +85,8 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
+        'USER': '',  # SQLite does not require a user
+        'PORT': '',  # SQLite does not require a port
     }
 }
 
